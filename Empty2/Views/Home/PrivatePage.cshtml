@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "PrivatePage";
+}
+
+<h2>Private Page</h2>
+
+<h2>Login Successfull!</h2>
+
+<p>Your details:</p>
+<ul>
+    <li>authType = @User.Identity.AuthenticationType </li>
+    <li>name = @User.Identity.Name </li>
+    <li>IsAuthenticated? =@User.Identity.IsAuthenticated </li>
+    <li>IsAdmin? = @User.IsInRole("Administrator") </li>
+</ul>
+<a href="@Url.Action("LogOut")">Log Out</a>

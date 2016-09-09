@@ -1,0 +1,39 @@
+﻿@using System.Threading
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>Login Successfull!</h2>
+
+    @:Redirecting to Private Page in 5 seconds. . .
+
+    <p>If it doesn't redirect <a href="@Url.Action("PrivatePage")">Click Here</a></p>
+
+    <script>
+        window.setTimeout(function () {
+            window.location.href = '@Url.Action("PrivatePage")';
+        }, 5000);
+</script>
+    
+}
+else
+{
+    <h2>Login</h2>
+    @ViewBag.ErrorLogin
+    
+    using (@Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        @Html.Label("User Name")
+        <br />
+        @Html.TextBox("UserName")
+        <br />
+        @Html.Label("Password")
+        <br />
+        @Html.Password("Password")
+        <br />
+        <input type="submit" value="Log In" />
+    }
+}

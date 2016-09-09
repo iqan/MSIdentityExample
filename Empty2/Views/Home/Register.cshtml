@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>You are already Logged in as @User.Identity.Name</h2>
+
+    @:Redirecting to Private Page in 5 seconds. . .
+
+    <p>If it doesn't redirect <a href="@Url.Action("PrivatePage")">Click Here</a></p>
+
+    <script>
+        window.setTimeout(function () {
+            window.location.href = '@Url.Action("PrivatePage")';
+        }, 5000);
+    </script>
+}
+else
+{
+    <h2>Register</h2>
+
+    using (@Html.BeginForm("Register", "Home", FormMethod.Post))
+    {
+        @Html.Label("User Name")
+        <br />
+        @Html.TextBox("UserName")
+        <br />
+        @Html.Label("Password")
+        <br />
+        @Html.Password("Password")
+        <br />
+        <input type="submit" value="Register" />
+    }
+}
