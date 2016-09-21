@@ -4,8 +4,10 @@
 }
 
 <h2>Home Page</h2>
-
-Hello There.
+@{
+    string x = (User.Identity.IsAuthenticated) ? User.Identity.Name : "There";
+}
+Hello @x.
 
 <br/>
 <br />
@@ -16,3 +18,6 @@ Hello There.
 <br />
 <br />
 <a href="@Url.Action("PrivatePage")">Private Page</a>
+<br/>
+<br />
+<a href="#">Twitter</a>

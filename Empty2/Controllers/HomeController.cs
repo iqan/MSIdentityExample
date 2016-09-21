@@ -53,13 +53,7 @@ namespace Empty2.Controllers
         [HttpPost]
         public ActionResult Login(FormCollection collection)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.authType = User.Identity.AuthenticationType;
-                ViewBag.name = User.Identity.Name;
-                ViewBag.auth = User.Identity.IsAuthenticated;
-            }
-            else
+            if (!User.Identity.IsAuthenticated)
             {
                 var store = new UserStore<IdentityUser>();
                 var manager = new UserManager<IdentityUser>(store);
@@ -71,18 +65,26 @@ namespace Empty2.Controllers
                     var authManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
                     var cIdentity = manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
                     authManager.SignIn(new AuthenticationProperties(), cIdentity);
-                    ViewBag.authType = User.Identity.AuthenticationType;
-                    ViewBag.name = User.Identity.Name;
-                    ViewBag.auth = User.Identity.IsAuthenticated;
-                    return View("PrivatePage");
+                    return RedirectToAction("PrivatePage");
                 }
+                ViewBag.ErrorLogin = "Log In failed";
             }
-            ViewBag.ErrorLogin = "Log In failed";
             return View();     
         }
 
         [Authorize]
         public ActionResult PrivatePage()
+        {
+            return View();
+        }
+
+        public ActionResult TwitterLogin()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Twitter()
         {
             return View();
         }
